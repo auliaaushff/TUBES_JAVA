@@ -4,15 +4,15 @@
  */
 package tiketkereta;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author Aulia Aushaf Abidah
  */
 public class Data_Kereta extends javax.swing.JFrame {
-
-    /**
-     * Creates new form Tiket_Kereta
-     */
+    int ekonomi, bisnis, eksekutif, harga;
+    
     public Data_Kereta() {
         initComponents();
     }
@@ -26,6 +26,7 @@ public class Data_Kereta extends javax.swing.JFrame {
     // <editor-fold defaultstate="collapsed" desc="Generated Code">//GEN-BEGIN:initComponents
     private void initComponents() {
 
+        buttonGroup1 = new javax.swing.ButtonGroup();
         jPanel1 = new javax.swing.JPanel();
         jLabel1 = new javax.swing.JLabel();
         jPanel2 = new javax.swing.JPanel();
@@ -39,8 +40,6 @@ public class Data_Kereta extends javax.swing.JFrame {
         rb_eksekutif = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         txt_harga = new javax.swing.JTextField();
-        jLabel6 = new javax.swing.JLabel();
-        keberangkatan = new javax.swing.JComboBox<>();
         btn_lanjutkan = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -65,21 +64,51 @@ public class Data_Kereta extends javax.swing.JFrame {
 
         jLabel5.setText("Kelas");
 
-        tujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tujuan", "GAMBIR", "BANDUNG", "YOGYAKARTA", "SURABAYA", "PASAR SENEN", " " }));
+        tujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tujuan", "GAMBIR", "YOGYAKARTA", "SURABAYA", "PASAR SENEN", "MALANG", " " }));
+        tujuan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tujuanActionPerformed(evt);
+            }
+        });
 
         tgl.setText("Input Tgl-Bln-Thn");
+        tgl.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                tglActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(rb_ekonomi);
         rb_ekonomi.setText("Ekonomi");
+        rb_ekonomi.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_ekonomiActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(rb_bisnis);
         rb_bisnis.setText("Bisnis");
+        rb_bisnis.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_bisnisActionPerformed(evt);
+            }
+        });
 
+        buttonGroup1.add(rb_eksekutif);
         rb_eksekutif.setText("Eksekutif");
+        rb_eksekutif.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                rb_eksekutifActionPerformed(evt);
+            }
+        });
 
         jLabel2.setText("Harga");
 
-        jLabel6.setText("Keberangkatan");
-
-        keberangkatan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Keberangkatan", "GAMBIR", "BANDUNG", "YOGYAKARTA", "SURABAYA", "PASAR SENEN" }));
+        txt_harga.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_hargaActionPerformed(evt);
+            }
+        });
 
         javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
         jPanel2.setLayout(jPanel2Layout);
@@ -87,58 +116,47 @@ public class Data_Kereta extends javax.swing.JFrame {
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
                 .addContainerGap()
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                    .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(jLabel4)
+                    .addComponent(jLabel5)
+                    .addComponent(jLabel2)
+                    .addComponent(jLabel3))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 62, Short.MAX_VALUE)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(rb_ekonomi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(jLabel4)
-                            .addComponent(jLabel5)
-                            .addComponent(jLabel2)
-                            .addComponent(jLabel3))
-                        .addGap(56, 56, 56)
-                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel2Layout.createSequentialGroup()
-                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                                    .addComponent(rb_bisnis, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rb_ekonomi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                    .addComponent(rb_eksekutif, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
-                                .addGap(0, 0, Short.MAX_VALUE))
-                            .addComponent(tujuan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                            .addComponent(tgl)
-                            .addComponent(txt_harga)))
-                    .addGroup(jPanel2Layout.createSequentialGroup()
-                        .addComponent(jLabel6)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                        .addComponent(keberangkatan, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)))
-                .addContainerGap(12, Short.MAX_VALUE))
+                            .addComponent(tujuan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tgl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addComponent(rb_bisnis, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addComponent(rb_eksekutif, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(txt_harga, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
         jPanel2Layout.setVerticalGroup(
             jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel2Layout.createSequentialGroup()
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel6)
-                    .addComponent(keberangkatan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
                     .addComponent(tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel4)
+                    .addComponent(tgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(18, 18, 18)
+                .addComponent(rb_ekonomi)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(tgl, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jLabel4))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(rb_ekonomi)
+                    .addComponent(rb_bisnis)
                     .addComponent(jLabel5))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(rb_bisnis)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(rb_eksekutif, javax.swing.GroupLayout.PREFERRED_SIZE, 21, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(12, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 260, 260));
@@ -147,6 +165,11 @@ public class Data_Kereta extends javax.swing.JFrame {
         btn_lanjutkan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
         btn_lanjutkan.setForeground(new java.awt.Color(255, 255, 255));
         btn_lanjutkan.setText("LANJUTKAN");
+        btn_lanjutkan.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_lanjutkanActionPerformed(evt);
+            }
+        });
         jPanel1.add(btn_lanjutkan, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -168,6 +191,76 @@ public class Data_Kereta extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void tujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tujuanActionPerformed
+        // TODO add your handling code here:
+        if(tujuan.getSelectedItem().equals("Pilih Tujuan")){
+            buttonGroup1.clearSelection();
+            txt_harga.setText("");   
+        }
+        else if (tujuan.getSelectedItem().equals("GAMBIR")){
+            ekonomi=150000;
+            bisnis=250000;
+            eksekutif=510000;
+        }
+        else if (tujuan.getSelectedItem().equals("YOGYAKARTA")){
+            ekonomi=260000;
+            bisnis=320000;
+            eksekutif=640000;
+        }
+        else if (tujuan.getSelectedItem().equals("SURABAYA")){
+            ekonomi=360000;
+            bisnis=475000;
+            eksekutif=750000;
+        }
+        else if (tujuan.getSelectedItem().equals("PASAR SENEN")){
+            ekonomi=45000;
+            bisnis=150000;
+            eksekutif=350000;
+        }
+        else if (tujuan.getSelectedItem().equals("MALANG")){
+            ekonomi=290000;
+            bisnis=360000;
+            eksekutif=680000;
+        }
+    }//GEN-LAST:event_tujuanActionPerformed
+
+    private void rb_ekonomiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_ekonomiActionPerformed
+        // TODO add your handling code here:
+        if(rb_ekonomi.isSelected()){
+            txt_harga.setText(String.valueOf(ekonomi));
+        }
+    }//GEN-LAST:event_rb_ekonomiActionPerformed
+
+    private void rb_bisnisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_bisnisActionPerformed
+        // TODO add your handling code here:
+        if(rb_bisnis.isSelected()){
+            txt_harga.setText(String.valueOf(bisnis));
+        }
+    }//GEN-LAST:event_rb_bisnisActionPerformed
+
+    private void rb_eksekutifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_eksekutifActionPerformed
+        // TODO add your handling code here:
+        if(rb_eksekutif.isSelected()){
+            txt_harga.setText(String.valueOf(eksekutif));
+        }
+    }//GEN-LAST:event_rb_eksekutifActionPerformed
+
+    private void tglActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tglActionPerformed
+        // TODO add your handling code here:
+        
+    }//GEN-LAST:event_tglActionPerformed
+
+    private void btn_lanjutkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lanjutkanActionPerformed
+        // TODO add your handling code here:
+         Data_Penumpang dataPenumpangWindow = new Data_Penumpang(txt_harga.getText());
+        dataPenumpangWindow.setVisible(true);
+        this.dispose(); // Menutup window saat ini
+    }//GEN-LAST:event_btn_lanjutkanActionPerformed
+
+    private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_hargaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -199,6 +292,7 @@ public class Data_Kereta extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Data_Kereta().setVisible(true);
             }
@@ -207,15 +301,14 @@ public class Data_Kereta extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton btn_lanjutkan;
+    private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
-    private javax.swing.JLabel jLabel6;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
-    private javax.swing.JComboBox<String> keberangkatan;
     private javax.swing.JRadioButton rb_bisnis;
     private javax.swing.JRadioButton rb_ekonomi;
     private javax.swing.JRadioButton rb_eksekutif;
