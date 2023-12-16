@@ -12,8 +12,8 @@ import javax.swing.JOptionPane;
  */
 public class Data_Kereta extends javax.swing.JFrame {
     int ekonomi, bisnis, eksekutif, beli;
-    private int harga;
-    String nama;
+    public int harga;
+    public static String nama;
     public Data_Kereta() {
         initComponents();
         initHargaTiket();
