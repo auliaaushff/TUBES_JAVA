@@ -10,11 +10,11 @@ import javax.swing.JOptionPane;
  *
  * @author Aulia Aushaf Abidah
  */
-public class Data_Kereta extends javax.swing.JFrame {
+public class Main extends javax.swing.JFrame {
     int ekonomi, bisnis, eksekutif, beli;
     public int harga;
     public static String nama;
-    public Data_Kereta() {
+    public Main() {
         initComponents();
         initHargaTiket();
     }
@@ -353,17 +353,22 @@ public class Data_Kereta extends javax.swing.JFrame {
 
     private void txt_npenumpangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_npenumpangActionPerformed
         // TODO add your handling code here:
-        nama = txt_npenumpang.getText();
+        
     }//GEN-LAST:event_txt_npenumpangActionPerformed
-    public String getNama() {
-        return nama; // Getter method to access the 'nama' variable
-    }
+
     private void txt_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bayarActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_bayarActionPerformed
 
     private void btn_cetak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak1ActionPerformed
         // TODO add your handling code here:
+        nama = txt_npenumpang.getText();
+        Cetak ct = new Cetak();
+        ct.pack();
+        ct.setVisible(true);
+        ct.setLocationRelativeTo(null);
+        ct.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
+        this.dispose();
     }//GEN-LAST:event_btn_cetak1ActionPerformed
 
     /**
@@ -383,21 +388,23 @@ public class Data_Kereta extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(Data_Kereta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(Data_Kereta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(Data_Kereta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(Data_Kereta.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Main.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new Data_Kereta().setVisible(true);
+                new Main().setVisible(true);
             }
         });
     }
