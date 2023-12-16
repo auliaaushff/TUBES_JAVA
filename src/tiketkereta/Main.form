@@ -108,7 +108,7 @@
                           <Component id="jLabel2" alignment="0" min="-2" max="-2" attributes="0"/>
                           <Component id="jLabel3" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
-                      <EmptySpace pref="62" max="32767" attributes="0"/>
+                      <EmptySpace pref="36" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="1" groupAlignment="0" attributes="0">
                               <Component id="rb_ekonomi" min="-2" pref="107" max="-2" attributes="0"/>
@@ -165,7 +165,7 @@
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel4">
               <Properties>
-                <Property name="text" type="java.lang.String" value="Tgl"/>
+                <Property name="text" type="java.lang.String" value="Tgl-Bln-Thn"/>
               </Properties>
             </Component>
             <Component class="javax.swing.JLabel" name="jLabel5">
@@ -176,14 +176,13 @@
             <Component class="javax.swing.JComboBox" name="tujuan">
               <Properties>
                 <Property name="model" type="javax.swing.ComboBoxModel" editor="org.netbeans.modules.form.editors2.ComboBoxModelEditor">
-                  <StringArray count="7">
+                  <StringArray count="6">
                     <StringItem index="0" value="Pilih Tujuan"/>
                     <StringItem index="1" value="GAMBIR"/>
                     <StringItem index="2" value="YOGYAKARTA"/>
                     <StringItem index="3" value="SURABAYA"/>
                     <StringItem index="4" value="PASAR SENEN"/>
                     <StringItem index="5" value="MALANG"/>
-                    <StringItem index="6" value=" "/>
                   </StringArray>
                 </Property>
               </Properties>
@@ -195,9 +194,6 @@
               </AuxValues>
             </Component>
             <Component class="javax.swing.JTextField" name="tgl">
-              <Properties>
-                <Property name="text" type="java.lang.String" value="Input Tgl-Bln-Thn"/>
-              </Properties>
               <Events>
                 <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="tglActionPerformed"/>
               </Events>
@@ -295,11 +291,11 @@
                       <EmptySpace min="-2" pref="14" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
                           <Group type="103" alignment="0" groupAlignment="1" attributes="0">
-                              <Component id="jLabel7" alignment="1" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel6" alignment="0" min="-2" max="-2" attributes="0"/>
-                              <Component id="jLabel8" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="npenumpang" alignment="1" min="-2" max="-2" attributes="0"/>
+                              <Component id="gerbong" alignment="0" min="-2" max="-2" attributes="0"/>
+                              <Component id="jmlhBeli" alignment="0" min="-2" max="-2" attributes="0"/>
                           </Group>
-                          <Component id="jLabel9" alignment="0" min="-2" max="-2" attributes="0"/>
+                          <Component id="ttlBayar" alignment="0" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace pref="23" max="32767" attributes="0"/>
                       <Group type="103" groupAlignment="0" attributes="0">
@@ -319,22 +315,22 @@
                   <Group type="102" alignment="0" attributes="0">
                       <EmptySpace min="-2" pref="21" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel6" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="gerbong" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="cbo_gerbong" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="32" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel7" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="npenumpang" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_npenumpang" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="26" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel8" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="jmlhBeli" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_beli" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace min="-2" pref="30" max="-2" attributes="0"/>
                       <Group type="103" groupAlignment="3" attributes="0">
-                          <Component id="jLabel9" alignment="3" min="-2" max="-2" attributes="0"/>
+                          <Component id="ttlBayar" alignment="3" min="-2" max="-2" attributes="0"/>
                           <Component id="txt_bayar" alignment="3" min="-2" max="-2" attributes="0"/>
                       </Group>
                       <EmptySpace max="32767" attributes="0"/>
@@ -343,22 +339,22 @@
             </DimensionLayout>
           </Layout>
           <SubComponents>
-            <Component class="javax.swing.JLabel" name="jLabel6">
+            <Component class="javax.swing.JLabel" name="gerbong">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nomor Gerbong"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel7">
+            <Component class="javax.swing.JLabel" name="npenumpang">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Nama Penumpang"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel8">
+            <Component class="javax.swing.JLabel" name="jmlhBeli">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Jumlah Beli"/>
               </Properties>
             </Component>
-            <Component class="javax.swing.JLabel" name="jLabel9">
+            <Component class="javax.swing.JLabel" name="ttlBayar">
               <Properties>
                 <Property name="text" type="java.lang.String" value="Total Bayar"/>
               </Properties>
