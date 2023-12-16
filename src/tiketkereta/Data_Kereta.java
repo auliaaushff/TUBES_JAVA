@@ -11,12 +11,20 @@ import javax.swing.JOptionPane;
  * @author Aulia Aushaf Abidah
  */
 public class Data_Kereta extends javax.swing.JFrame {
-    int ekonomi, bisnis, eksekutif, harga;
-    
+    int ekonomi, bisnis, eksekutif, beli;
+    private int harga;
+    String nama;
     public Data_Kereta() {
         initComponents();
+        initHargaTiket();
     }
-
+    private void initHargaTiket() {
+        // Inisialisasi harga tiket berdasarkan tujuan
+        // (Anda dapat menyesuaikan harga sesuai dengan kebutuhan)
+        ekonomi = 150000;
+        bisnis = 250000;
+        eksekutif = 510000;
+    }
     /**
      * This method is called from within the constructor to initialize the form.
      * WARNING: Do NOT modify this code. The content of this method is always
@@ -40,7 +48,17 @@ public class Data_Kereta extends javax.swing.JFrame {
         rb_eksekutif = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         txt_harga = new javax.swing.JTextField();
-        btn_lanjutkan = new javax.swing.JButton();
+        btn_hitung = new javax.swing.JButton();
+        jPanel3 = new javax.swing.JPanel();
+        jLabel6 = new javax.swing.JLabel();
+        jLabel7 = new javax.swing.JLabel();
+        jLabel8 = new javax.swing.JLabel();
+        jLabel9 = new javax.swing.JLabel();
+        cbo_gerbong = new javax.swing.JComboBox<>();
+        txt_beli = new javax.swing.JTextField();
+        txt_npenumpang = new javax.swing.JTextField();
+        txt_bayar = new javax.swing.JTextField();
+        btn_cetak1 = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -52,7 +70,7 @@ public class Data_Kereta extends javax.swing.JFrame {
         jLabel1.setFont(new java.awt.Font("Microsoft New Tai Lue", 1, 20)); // NOI18N
         jLabel1.setForeground(new java.awt.Color(27, 104, 176));
         jLabel1.setText("PENJUALAN TIKET KERETA API ONLINE");
-        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(30, 20, -1, -1));
+        jPanel1.add(jLabel1, new org.netbeans.lib.awtextra.AbsoluteConstraints(160, 20, -1, -1));
 
         jPanel2.setBackground(java.awt.SystemColor.control);
         jPanel2.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "DATA KERETA ANTAR KOTA", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft JhengHei UI Light", 1, 12))); // NOI18N
@@ -156,73 +174,136 @@ public class Data_Kereta extends javax.swing.JFrame {
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel2)
                     .addComponent(txt_harga, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(12, Short.MAX_VALUE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(90, 70, 260, 260));
+        jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 260, 260));
 
-        btn_lanjutkan.setBackground(new java.awt.Color(255, 119, 41));
-        btn_lanjutkan.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_lanjutkan.setForeground(new java.awt.Color(255, 255, 255));
-        btn_lanjutkan.setText("LANJUTKAN");
-        btn_lanjutkan.addActionListener(new java.awt.event.ActionListener() {
+        btn_hitung.setBackground(new java.awt.Color(255, 119, 41));
+        btn_hitung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_hitung.setForeground(new java.awt.Color(255, 255, 255));
+        btn_hitung.setText("HITUNG");
+        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_lanjutkanActionPerformed(evt);
+                btn_hitungActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_lanjutkan, new org.netbeans.lib.awtextra.AbsoluteConstraints(170, 350, -1, -1));
+        jPanel1.add(btn_hitung, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, -1, -1));
+
+        jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "DATA PENUMPANG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft JhengHei UI Light", 1, 12))); // NOI18N
+
+        jLabel6.setText("Nomor Gerbong");
+
+        jLabel7.setText("Nama Penumpang");
+
+        jLabel8.setText("Jumlah Beli");
+
+        jLabel9.setText("Total Bayar");
+
+        cbo_gerbong.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Input Nomor Gerbang", "1", "2", "3", "4" }));
+        cbo_gerbong.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_gerbongActionPerformed(evt);
+            }
+        });
+
+        txt_beli.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_beliActionPerformed(evt);
+            }
+        });
+
+        txt_npenumpang.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_npenumpangActionPerformed(evt);
+            }
+        });
+
+        txt_bayar.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                txt_bayarActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel3Layout = new javax.swing.GroupLayout(jPanel3);
+        jPanel3.setLayout(jPanel3Layout);
+        jPanel3Layout.setHorizontalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(14, 14, 14)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                        .addComponent(jLabel7)
+                        .addComponent(jLabel6, javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(jLabel8, javax.swing.GroupLayout.Alignment.LEADING))
+                    .addComponent(jLabel9))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(txt_bayar)
+                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                        .addComponent(cbo_gerbong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                        .addComponent(txt_beli)
+                        .addComponent(txt_npenumpang, javax.swing.GroupLayout.Alignment.TRAILING)))
+                .addGap(18, 18, 18))
+        );
+        jPanel3Layout.setVerticalGroup(
+            jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel3Layout.createSequentialGroup()
+                .addGap(21, 21, 21)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel6)
+                    .addComponent(cbo_gerbong, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(32, 32, 32)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel7)
+                    .addComponent(txt_npenumpang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(26, 26, 26)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel8)
+                    .addComponent(txt_beli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(30, 30, 30)
+                .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel9)
+                    .addComponent(txt_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+        );
+
+        jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 320, 260));
+
+        btn_cetak1.setBackground(new java.awt.Color(255, 119, 41));
+        btn_cetak1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_cetak1.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak1.setText("CETAK TIKET");
+        btn_cetak1.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_cetak1ActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_cetak1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 437, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 719, Short.MAX_VALUE)
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, 398, Short.MAX_VALUE)
-                .addContainerGap())
+            .addComponent(jPanel1, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 468, Short.MAX_VALUE)
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     private void tujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tujuanActionPerformed
-        // TODO add your handling code here:
-        if(tujuan.getSelectedItem().equals("Pilih Tujuan")){
-            buttonGroup1.clearSelection();
-            txt_harga.setText("");   
+        if (tujuan.getSelectedItem().equals("GAMBIR")) {
+            harga = ekonomi;
+        } else if (tujuan.getSelectedItem().equals("YOGYAKARTA")) {
+            harga = bisnis;
+        } else if (tujuan.getSelectedItem().equals("SURABAYA")) {
+            harga = eksekutif;
         }
-        else if (tujuan.getSelectedItem().equals("GAMBIR")){
-            ekonomi=150000;
-            bisnis=250000;
-            eksekutif=510000;
-        }
-        else if (tujuan.getSelectedItem().equals("YOGYAKARTA")){
-            ekonomi=260000;
-            bisnis=320000;
-            eksekutif=640000;
-        }
-        else if (tujuan.getSelectedItem().equals("SURABAYA")){
-            ekonomi=360000;
-            bisnis=475000;
-            eksekutif=750000;
-        }
-        else if (tujuan.getSelectedItem().equals("PASAR SENEN")){
-            ekonomi=45000;
-            bisnis=150000;
-            eksekutif=350000;
-        }
-        else if (tujuan.getSelectedItem().equals("MALANG")){
-            ekonomi=290000;
-            bisnis=360000;
-            eksekutif=680000;
-        }
+        txt_harga.setText(String.valueOf(harga));
     }//GEN-LAST:event_tujuanActionPerformed
 
     private void rb_ekonomiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_ekonomiActionPerformed
@@ -251,16 +332,39 @@ public class Data_Kereta extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tglActionPerformed
 
-    private void btn_lanjutkanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_lanjutkanActionPerformed
-        // TODO add your handling code here:
-         Data_Penumpang dataPenumpangWindow = new Data_Penumpang(txt_harga.getText());
-        dataPenumpangWindow.setVisible(true);
-        this.dispose(); // Menutup window saat ini
-    }//GEN-LAST:event_btn_lanjutkanActionPerformed
+    private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
+        // TODO add your handling code here:  
+        beli = Integer.parseInt(txt_beli.getText());
+        int total = beli * harga;
+        txt_bayar.setText(String.valueOf(total));
+    }//GEN-LAST:event_btn_hitungActionPerformed
 
     private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hargaActionPerformed
+
+    private void cbo_gerbongActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_gerbongActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_cbo_gerbongActionPerformed
+
+    private void txt_beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_beliActionPerformed
+        
+    }//GEN-LAST:event_txt_beliActionPerformed
+
+    private void txt_npenumpangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_npenumpangActionPerformed
+        // TODO add your handling code here:
+        nama = txt_npenumpang.getText();
+    }//GEN-LAST:event_txt_npenumpangActionPerformed
+    public String getNama() {
+        return nama; // Getter method to access the 'nama' variable
+    }
+    private void txt_bayarActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_bayarActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_txt_bayarActionPerformed
+
+    private void btn_cetak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak1ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_btn_cetak1ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -292,7 +396,6 @@ public class Data_Kereta extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
-            @Override
             public void run() {
                 new Data_Kereta().setVisible(true);
             }
@@ -300,20 +403,30 @@ public class Data_Kereta extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_lanjutkan;
+    private javax.swing.JButton btn_cetak1;
+    private javax.swing.JButton btn_hitung;
     private javax.swing.ButtonGroup buttonGroup1;
+    private javax.swing.JComboBox<String> cbo_gerbong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel6;
+    private javax.swing.JLabel jLabel7;
+    private javax.swing.JLabel jLabel8;
+    private javax.swing.JLabel jLabel9;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
+    private javax.swing.JPanel jPanel3;
     private javax.swing.JRadioButton rb_bisnis;
     private javax.swing.JRadioButton rb_ekonomi;
     private javax.swing.JRadioButton rb_eksekutif;
     private javax.swing.JTextField tgl;
     private javax.swing.JComboBox<String> tujuan;
+    private javax.swing.JTextField txt_bayar;
+    private javax.swing.JTextField txt_beli;
     private javax.swing.JTextField txt_harga;
+    private javax.swing.JTextField txt_npenumpang;
     // End of variables declaration//GEN-END:variables
 }
