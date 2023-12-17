@@ -25,6 +25,18 @@ class TicketCalculator implements TicketCalculable {
     public int calculateTotal() {
         return harga * beli;
     }
+    
+    public int calculateTotal(String promoCode) {
+        int total = harga * beli;
+
+        // Logika perhitungan promo
+        if ("PROMO20".equals(promoCode)) {
+            // Contoh: diskon 20%
+            double diskon = 0.2;
+            total = (int) (total - (total * diskon));
+        }
+        return total;
+    }
 }
 
 // Extend the base class for specific ticket types
@@ -144,6 +156,7 @@ public class Main extends javax.swing.JFrame {
         cbo_jmltkt = new javax.swing.JComboBox<>();
         btn_cetak = new javax.swing.JButton();
         btn_hitung = new javax.swing.JButton();
+        jLabel7 = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -333,7 +346,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(npenumpang)
                     .addComponent(txt_npenumpang, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(26, 26, 26)
+                .addGap(34, 34, 34)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jmlhBeli)
                     .addComponent(cbo_jmltkt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -341,7 +354,7 @@ public class Main extends javax.swing.JFrame {
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ttlBayar)
                     .addComponent(txt_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(37, Short.MAX_VALUE))
+                .addContainerGap(29, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 320, 260));
@@ -367,6 +380,10 @@ public class Main extends javax.swing.JFrame {
             }
         });
         jPanel1.add(btn_hitung, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, -1, -1));
+
+        jLabel7.setForeground(new java.awt.Color(255, 0, 51));
+        jLabel7.setText("*Beli 5 Tiket Eksekutif Akan Mendapatkan Total Diskon 20%");
+        jPanel1.add(jLabel7, new org.netbeans.lib.awtextra.AbsoluteConstraints(210, 350, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -533,7 +550,14 @@ public class Main extends javax.swing.JFrame {
             total = bisnisCalculator.calculateTotal();
         } else if (isEksekutifSelected) {
             EksekutifTicketCalculator eksekutifCalculator = new EksekutifTicketCalculator(tujuan,beli);
+            
+            // Jika jumlah tiket adalah 5, terapkan promo
+            if (beli == 5) {
+            String promoCode = "PROMO20"; // Contoh promo diskon 20%
+            total = eksekutifCalculator.calculateTotal(promoCode);
+            } else {
             total = eksekutifCalculator.calculateTotal();
+            }
         }
 
         txt_bayar.setText(String.valueOf(total));
@@ -591,6 +615,7 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JLabel jLabel3;
     private javax.swing.JLabel jLabel4;
     private javax.swing.JLabel jLabel5;
+    private javax.swing.JLabel jLabel7;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JPanel jPanel2;
     private javax.swing.JPanel jPanel3;
