@@ -21,7 +21,7 @@ public class Cetak extends javax.swing.JFrame {
     Kelas.setText(Main.kls);
     Nomor.setText(Main.nomor);
     Harga.setText(String.valueOf(Main.hrg));
-    jumlahBeli.setText(Main.jumlah);
+    jumlahBeli.setText(String.valueOf(Main.jumlahbeli));
     totalBayar.setText(String.valueOf(Main.byr));
     }
 

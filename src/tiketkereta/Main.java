@@ -10,7 +10,10 @@ import javax.swing.JOptionPane;
  *
  * @author Aulia Aushaf Abidah
  */
-class TicketCalculator {
+interface TicketCalculable {
+    int calculateTotal();
+}
+class TicketCalculator implements TicketCalculable {
     protected int harga;
     protected int beli;
 
@@ -18,7 +21,7 @@ class TicketCalculator {
         this.harga = harga;
         this.beli = beli;
     }
-
+    @Override
     public int calculateTotal() {
         return harga * beli;
     }
@@ -26,27 +29,79 @@ class TicketCalculator {
 
 // Extend the base class for specific ticket types
 class EkonomiTicketCalculator extends TicketCalculator {
-    public EkonomiTicketCalculator(int beli) {
-        super(150000, beli);
+    public EkonomiTicketCalculator(String tujuan, int beli) {
+        super(getHargaEkonomiByTujuan(tujuan), beli);
+    }
+
+    // Metode untuk mendapatkan harga ekonomi berdasarkan tujuan
+    private static int getHargaEkonomiByTujuan(String tujuan) {
+        switch (tujuan) {
+            case "GAMBIR":
+                return 150000; // Sesuaikan dengan harga untuk Gambir
+            case "YOGYAKARTA":
+                return 260000; // Sesuaikan dengan harga untuk Yogyakarta
+            case "SURABAYA":
+                return 360000; // Sesuaikan dengan harga untuk Surabaya
+            case "PASAR SENEN":
+                return 45000;  // Sesuaikan dengan harga untuk Pasar Senen
+            case "MALANG":
+                return 290000; // Sesuaikan dengan harga untuk Malang
+            default:
+                return 0; // Nilai default jika tujuan tidak dikenali
+        }
     }
 }
 
 class BisnisTicketCalculator extends TicketCalculator {
-    public BisnisTicketCalculator(int beli) {
-        super(250000, beli);
+    public BisnisTicketCalculator(String tujuan, int beli) {
+        super(getHargaBisnisByTujuan(tujuan), beli);
+    }
+        private static int getHargaBisnisByTujuan(String tujuan) {
+        switch (tujuan) {
+            case "GAMBIR":
+                return 250000; // Sesuaikan dengan harga untuk Gambir
+            case "YOGYAKARTA":
+                return 320000; // Sesuaikan dengan harga untuk Yogyakarta
+            case "SURABAYA":
+                return 475000; // Sesuaikan dengan harga untuk Surabaya
+            case "PASAR SENEN":
+                return 150000;  // Sesuaikan dengan harga untuk Pasar Senen
+            case "MALANG":
+                return 360000; // Sesuaikan dengan harga untuk Malang
+            default:
+                return 0; // Nilai default jika tujuan tidak dikenali
+        }
     }
 }
 
 class EksekutifTicketCalculator extends TicketCalculator {
-    public EksekutifTicketCalculator(int beli) {
-        super(510000, beli);
+    public EksekutifTicketCalculator(String tujuan, int beli) {
+        super(getHargaEksekutifByTujuan(tujuan), beli);
+    }
+     private static int getHargaEksekutifByTujuan(String tujuan) {
+        switch (tujuan) {
+            case "GAMBIR":
+                return 510000;
+            case "YOGYAKARTA":
+                return 640000;
+            case "SURABAYA":
+                return 750000;
+            case "PASAR SENEN":
+                return 350000;
+            case "MALANG":
+                return 680000;
+            default:
+                return 0; // Default jika tujuan tidak dikenali
+        }
     }
 }
+
 public class Main extends javax.swing.JFrame {
     int ekonomi, bisnis, eksekutif;
     public int harga;
     public static String nama,tanggal,tjn,kls,nomor,jumlah;
     public static int hrg,byr;
+    public static int jumlahbeli = 1;
     private boolean isEkonomiSelected = false;
     private boolean isBisnisSelected = false;
     private boolean isEksekutifSelected = false;
@@ -71,24 +126,24 @@ public class Main extends javax.swing.JFrame {
         jLabel3 = new javax.swing.JLabel();
         jLabel4 = new javax.swing.JLabel();
         jLabel5 = new javax.swing.JLabel();
-        tujuan = new javax.swing.JComboBox<>();
+        tujuanComboBox = new javax.swing.JComboBox<>();
         tgl = new javax.swing.JTextField();
         rb_ekonomi = new javax.swing.JRadioButton();
         rb_bisnis = new javax.swing.JRadioButton();
         rb_eksekutif = new javax.swing.JRadioButton();
         jLabel2 = new javax.swing.JLabel();
         txt_harga = new javax.swing.JTextField();
-        btn_hitung = new javax.swing.JButton();
         jPanel3 = new javax.swing.JPanel();
         gerbong = new javax.swing.JLabel();
         npenumpang = new javax.swing.JLabel();
         jmlhBeli = new javax.swing.JLabel();
         ttlBayar = new javax.swing.JLabel();
         cbo_gerbong = new javax.swing.JComboBox<>();
-        txt_beli = new javax.swing.JTextField();
         txt_npenumpang = new javax.swing.JTextField();
         txt_bayar = new javax.swing.JTextField();
-        btn_cetak1 = new javax.swing.JButton();
+        cbo_jmltkt = new javax.swing.JComboBox<>();
+        btn_cetak = new javax.swing.JButton();
+        btn_hitung = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
@@ -112,10 +167,10 @@ public class Main extends javax.swing.JFrame {
 
         jLabel5.setText("Kelas");
 
-        tujuan.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tujuan", "GAMBIR", "YOGYAKARTA", "SURABAYA", "PASAR SENEN", "MALANG" }));
-        tujuan.addActionListener(new java.awt.event.ActionListener() {
+        tujuanComboBox.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "Pilih Tujuan", "GAMBIR", "YOGYAKARTA", "SURABAYA", "PASAR SENEN", "MALANG" }));
+        tujuanComboBox.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                tujuanActionPerformed(evt);
+                tujuanComboBoxActionPerformed(evt);
             }
         });
 
@@ -173,7 +228,7 @@ public class Main extends javax.swing.JFrame {
                     .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(rb_ekonomi, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addComponent(tujuan, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(tujuanComboBox, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
                             .addComponent(tgl, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE))
                         .addComponent(rb_bisnis, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE)
                         .addComponent(rb_eksekutif, javax.swing.GroupLayout.PREFERRED_SIZE, 107, javax.swing.GroupLayout.PREFERRED_SIZE))
@@ -186,7 +241,7 @@ public class Main extends javax.swing.JFrame {
                 .addGap(15, 15, 15)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel3)
-                    .addComponent(tujuan, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(tujuanComboBox, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jLabel4)
@@ -208,17 +263,6 @@ public class Main extends javax.swing.JFrame {
 
         jPanel1.add(jPanel2, new org.netbeans.lib.awtextra.AbsoluteConstraints(50, 70, 260, 260));
 
-        btn_hitung.setBackground(new java.awt.Color(255, 119, 41));
-        btn_hitung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_hitung.setForeground(new java.awt.Color(255, 255, 255));
-        btn_hitung.setText("HITUNG");
-        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_hitungActionPerformed(evt);
-            }
-        });
-        jPanel1.add(btn_hitung, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, -1, -1));
-
         jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(new javax.swing.border.SoftBevelBorder(javax.swing.border.BevelBorder.RAISED), "DATA PENUMPANG", javax.swing.border.TitledBorder.CENTER, javax.swing.border.TitledBorder.DEFAULT_POSITION, new java.awt.Font("Microsoft JhengHei UI Light", 1, 12))); // NOI18N
 
         gerbong.setText("Nomor Gerbong");
@@ -236,12 +280,6 @@ public class Main extends javax.swing.JFrame {
             }
         });
 
-        txt_beli.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                txt_beliActionPerformed(evt);
-            }
-        });
-
         txt_npenumpang.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_npenumpangActionPerformed(evt);
@@ -251,6 +289,13 @@ public class Main extends javax.swing.JFrame {
         txt_bayar.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 txt_bayarActionPerformed(evt);
+            }
+        });
+
+        cbo_jmltkt.setModel(new javax.swing.DefaultComboBoxModel<>(new String[] { "1", "2", "3", "4", "5" }));
+        cbo_jmltkt.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                cbo_jmltktActionPerformed(evt);
             }
         });
 
@@ -266,13 +311,15 @@ public class Main extends javax.swing.JFrame {
                         .addComponent(gerbong, javax.swing.GroupLayout.Alignment.LEADING)
                         .addComponent(jmlhBeli, javax.swing.GroupLayout.Alignment.LEADING))
                     .addComponent(ttlBayar))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 23, Short.MAX_VALUE)
+                .addGap(23, 23, 23)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addComponent(txt_bayar)
-                    .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
-                        .addComponent(cbo_gerbong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(txt_beli)
-                        .addComponent(txt_npenumpang, javax.swing.GroupLayout.Alignment.TRAILING)))
+                    .addGroup(jPanel3Layout.createSequentialGroup()
+                        .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(cbo_gerbong, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                            .addComponent(txt_npenumpang, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(0, 0, Short.MAX_VALUE))
+                    .addComponent(cbo_jmltkt, 0, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addGap(18, 18, 18))
         );
         jPanel3Layout.setVerticalGroup(
@@ -289,26 +336,37 @@ public class Main extends javax.swing.JFrame {
                 .addGap(26, 26, 26)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(jmlhBeli)
-                    .addComponent(txt_beli, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(cbo_jmltkt, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(30, 30, 30)
                 .addGroup(jPanel3Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(ttlBayar)
                     .addComponent(txt_bayar, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(37, Short.MAX_VALUE))
         );
 
         jPanel1.add(jPanel3, new org.netbeans.lib.awtextra.AbsoluteConstraints(360, 70, 320, 260));
 
-        btn_cetak1.setBackground(new java.awt.Color(255, 119, 41));
-        btn_cetak1.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
-        btn_cetak1.setForeground(new java.awt.Color(255, 255, 255));
-        btn_cetak1.setText("CETAK TIKET");
-        btn_cetak1.addActionListener(new java.awt.event.ActionListener() {
+        btn_cetak.setBackground(new java.awt.Color(255, 119, 41));
+        btn_cetak.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_cetak.setForeground(new java.awt.Color(255, 255, 255));
+        btn_cetak.setText("CETAK TIKET");
+        btn_cetak.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                btn_cetak1ActionPerformed(evt);
+                btn_cetakActionPerformed(evt);
             }
         });
-        jPanel1.add(btn_cetak1, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, -1, -1));
+        jPanel1.add(btn_cetak, new org.netbeans.lib.awtextra.AbsoluteConstraints(230, 390, -1, -1));
+
+        btn_hitung.setBackground(new java.awt.Color(255, 119, 41));
+        btn_hitung.setFont(new java.awt.Font("Segoe UI", 1, 12)); // NOI18N
+        btn_hitung.setForeground(new java.awt.Color(255, 255, 255));
+        btn_hitung.setText("HITUNG");
+        btn_hitung.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                btn_hitungActionPerformed(evt);
+            }
+        });
+        jPanel1.add(btn_hitung, new org.netbeans.lib.awtextra.AbsoluteConstraints(380, 390, -1, -1));
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -324,43 +382,43 @@ public class Main extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void tujuanActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tujuanActionPerformed
-        if(tujuan.getSelectedItem().equals("Pilih Tujuan")){
+    private void tujuanComboBoxActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_tujuanComboBoxActionPerformed
+        if(tujuanComboBox.getSelectedItem().equals("Pilih Tujuan")){
             buttonGroup1.clearSelection();
             txt_harga.setText("");   
         }
-        else if (tujuan.getSelectedItem().equals("GAMBIR")){
+        else if (tujuanComboBox.getSelectedItem().equals("GAMBIR")){
             ekonomi=150000;
             bisnis=250000;
             eksekutif=510000;
             tjn="GAMBIR";
         }
-        else if (tujuan.getSelectedItem().equals("YOGYAKARTA")){
+        else if (tujuanComboBox.getSelectedItem().equals("YOGYAKARTA")){
             ekonomi=260000;
             bisnis=320000;
             eksekutif=640000;
             tjn="YOGYAKARTA";
         }
-        else if (tujuan.getSelectedItem().equals("SURABAYA")){
+        else if (tujuanComboBox.getSelectedItem().equals("SURABAYA")){
             ekonomi=360000;
             bisnis=475000;
             eksekutif=750000;
             tjn="SURABAYA";
         }
-        else if (tujuan.getSelectedItem().equals("PASAR SENEN")){
+        else if (tujuanComboBox.getSelectedItem().equals("PASAR SENEN")){
             ekonomi=45000;
             bisnis=150000;
             eksekutif=350000;
             tjn="PASAR SENEN";
         }
-        else if (tujuan.getSelectedItem().equals("MALANG")){
+        else if (tujuanComboBox.getSelectedItem().equals("MALANG")){
             ekonomi=290000;
             bisnis=360000;
             eksekutif=680000;
             tjn="MALANG";
         }
         txt_harga.setText(String.valueOf(harga));
-    }//GEN-LAST:event_tujuanActionPerformed
+    }//GEN-LAST:event_tujuanComboBoxActionPerformed
 
     private void rb_ekonomiActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_ekonomiActionPerformed
         // TODO add your handling code here:
@@ -406,26 +464,6 @@ public class Main extends javax.swing.JFrame {
         
     }//GEN-LAST:event_tglActionPerformed
 
-    private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
-        // TODO add your handling code here:  
-        int beli = Integer.parseInt(txt_beli.getText());
-        int total = 0;
-
-        if (isEkonomiSelected) {
-            EkonomiTicketCalculator ekonomiCalculator = new EkonomiTicketCalculator(beli);
-            total = ekonomiCalculator.calculateTotal();
-        } else if (isBisnisSelected) {
-            BisnisTicketCalculator bisnisCalculator = new BisnisTicketCalculator(beli);
-            total = bisnisCalculator.calculateTotal();
-        } else if (isEksekutifSelected) {
-            EksekutifTicketCalculator eksekutifCalculator = new EksekutifTicketCalculator(beli);
-            total = eksekutifCalculator.calculateTotal();
-        }
-
-        txt_bayar.setText(String.valueOf(total));
-        byr = total;
-    }//GEN-LAST:event_btn_hitungActionPerformed
-
     private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_hargaActionPerformed
@@ -449,10 +487,6 @@ public class Main extends javax.swing.JFrame {
         }
     }//GEN-LAST:event_cbo_gerbongActionPerformed
 
-    private void txt_beliActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_beliActionPerformed
-        
-    }//GEN-LAST:event_txt_beliActionPerformed
-
     private void txt_npenumpangActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_npenumpangActionPerformed
         // TODO add your handling code here:
         
@@ -462,18 +496,49 @@ public class Main extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_txt_bayarActionPerformed
 
-    private void btn_cetak1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetak1ActionPerformed
+    private void btn_cetakActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_cetakActionPerformed
         // TODO add your handling code here:
         nama = txt_npenumpang.getText();
         tanggal = tgl.getText();
-        jumlah = txt_beli.getText();
         Cetak ct = new Cetak();
         ct.pack();
         ct.setVisible(true);
         ct.setLocationRelativeTo(null);
         ct.setDefaultCloseOperation(Main.EXIT_ON_CLOSE);
         this.dispose();
-    }//GEN-LAST:event_btn_cetak1ActionPerformed
+    }//GEN-LAST:event_btn_cetakActionPerformed
+
+    private void cbo_jmltktActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cbo_jmltktActionPerformed
+        // TODO add your handling code here:
+     int selectedIndex = cbo_jmltkt.getSelectedIndex();
+
+    if (selectedIndex >= 0 && selectedIndex <= 5) {
+        for (int i = 0; i <= selectedIndex; i++) {
+            jumlahbeli = i + 1;
+        }
+    }
+    }//GEN-LAST:event_cbo_jmltktActionPerformed
+
+    private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
+        // TODO add your handling code here:
+        String tujuan = tujuanComboBox.getSelectedItem().toString(); 
+        int beli = jumlahbeli;
+        int total = 0;
+
+        if (isEkonomiSelected) {
+            EkonomiTicketCalculator ekonomiCalculator = new EkonomiTicketCalculator(tujuan,beli);
+            total = ekonomiCalculator.calculateTotal();
+        } else if (isBisnisSelected) {
+            BisnisTicketCalculator bisnisCalculator = new BisnisTicketCalculator(tujuan,beli);
+            total = bisnisCalculator.calculateTotal();
+        } else if (isEksekutifSelected) {
+            EksekutifTicketCalculator eksekutifCalculator = new EksekutifTicketCalculator(tujuan,beli);
+            total = eksekutifCalculator.calculateTotal();
+        }
+
+        txt_bayar.setText(String.valueOf(total));
+        byr = total;
+    }//GEN-LAST:event_btn_hitungActionPerformed
 
     /**
      * @param args the command line arguments
@@ -515,10 +580,11 @@ public class Main extends javax.swing.JFrame {
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton btn_cetak1;
+    private javax.swing.JButton btn_cetak;
     private javax.swing.JButton btn_hitung;
     private javax.swing.ButtonGroup buttonGroup1;
     private javax.swing.JComboBox<String> cbo_gerbong;
+    private javax.swing.JComboBox<String> cbo_jmltkt;
     private javax.swing.JLabel gerbong;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
@@ -535,9 +601,8 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JRadioButton rb_eksekutif;
     private javax.swing.JTextField tgl;
     private javax.swing.JLabel ttlBayar;
-    private javax.swing.JComboBox<String> tujuan;
+    private javax.swing.JComboBox<String> tujuanComboBox;
     private javax.swing.JTextField txt_bayar;
-    private javax.swing.JTextField txt_beli;
     private javax.swing.JTextField txt_harga;
     private javax.swing.JTextField txt_npenumpang;
     // End of variables declaration//GEN-END:variables
