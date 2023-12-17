@@ -15,6 +15,9 @@ public class Main extends javax.swing.JFrame {
     public int harga;
     public static String nama,tanggal,tjn,kls,nomor,jumlah;
     public static int hrg,byr;
+    private boolean isEkonomiSelected = false;
+    private boolean isBisnisSelected = false;
+    private boolean isEksekutifSelected = false;
     public Main() {
         initComponents();
         txt_harga.disable();
@@ -334,26 +337,35 @@ public class Main extends javax.swing.JFrame {
         txt_harga.setText(String.valueOf(ekonomi));
         hrg = Integer.parseInt(txt_harga.getText());
         kls="Ekonomi";
+        isEkonomiSelected = true;
+        } else {
+        isEkonomiSelected = false;
     }
     }//GEN-LAST:event_rb_ekonomiActionPerformed
 
     private void rb_bisnisActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_bisnisActionPerformed
         // TODO add your handling code here:
         if(rb_bisnis.isSelected()){
-            harga = bisnis;
-            txt_harga.setText(String.valueOf(bisnis));
-            hrg = Integer.parseInt(txt_harga.getText());
-            kls="Bisnis";
-        }
+        harga = bisnis;
+        txt_harga.setText(String.valueOf(bisnis));
+        hrg = Integer.parseInt(txt_harga.getText());
+        kls="Bisnis";
+        isBisnisSelected = true;
+    } else {
+        isBisnisSelected = false;
+    }
     }//GEN-LAST:event_rb_bisnisActionPerformed
 
     private void rb_eksekutifActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_rb_eksekutifActionPerformed
         // TODO add your handling code here:
         if(rb_eksekutif.isSelected()){
-            harga = eksekutif;
-            txt_harga.setText(String.valueOf(eksekutif));
-            hrg = Integer.parseInt(txt_harga.getText());
-            kls="Eksekutif";
+        harga = eksekutif;
+        txt_harga.setText(String.valueOf(eksekutif));
+        hrg = Integer.parseInt(txt_harga.getText());
+        kls="Eksekutif";
+        isEksekutifSelected = true;
+    } else {
+        isEksekutifSelected = false;
         }
     }//GEN-LAST:event_rb_eksekutifActionPerformed
 
@@ -364,15 +376,10 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
         // TODO add your handling code here:  
-        try {
         beli = Integer.parseInt(txt_beli.getText());
         int total = beli * harga; // harga disesuaikan dengan pilihan radio button
         txt_bayar.setText(String.valueOf(total));
         byr = Integer.parseInt(txt_bayar.getText());
-        } 
-        catch (NumberFormatException e) {
-        JOptionPane.showMessageDialog(this, "Input beli tidak valid. Harap masukkan angka.", "Error", JOptionPane.ERROR_MESSAGE);
-        }
     }//GEN-LAST:event_btn_hitungActionPerformed
 
     private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
@@ -456,6 +463,7 @@ public class Main extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
+            @Override
             public void run() {
                 new Main().setVisible(true);
             }
@@ -490,3 +498,4 @@ public class Main extends javax.swing.JFrame {
     private javax.swing.JTextField txt_npenumpang;
     // End of variables declaration//GEN-END:variables
 }
+
