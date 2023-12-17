@@ -10,8 +10,40 @@ import javax.swing.JOptionPane;
  *
  * @author Aulia Aushaf Abidah
  */
+class TicketCalculator {
+    protected int harga;
+    protected int beli;
+
+    public TicketCalculator(int harga, int beli) {
+        this.harga = harga;
+        this.beli = beli;
+    }
+
+    public int calculateTotal() {
+        return harga * beli;
+    }
+}
+
+// Extend the base class for specific ticket types
+class EkonomiTicketCalculator extends TicketCalculator {
+    public EkonomiTicketCalculator(int beli) {
+        super(150000, beli);
+    }
+}
+
+class BisnisTicketCalculator extends TicketCalculator {
+    public BisnisTicketCalculator(int beli) {
+        super(250000, beli);
+    }
+}
+
+class EksekutifTicketCalculator extends TicketCalculator {
+    public EksekutifTicketCalculator(int beli) {
+        super(510000, beli);
+    }
+}
 public class Main extends javax.swing.JFrame {
-    int ekonomi, bisnis, eksekutif, beli;
+    int ekonomi, bisnis, eksekutif;
     public int harga;
     public static String nama,tanggal,tjn,kls,nomor,jumlah;
     public static int hrg,byr;
@@ -376,10 +408,22 @@ public class Main extends javax.swing.JFrame {
 
     private void btn_hitungActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_btn_hitungActionPerformed
         // TODO add your handling code here:  
-        beli = Integer.parseInt(txt_beli.getText());
-        int total = beli * harga; // harga disesuaikan dengan pilihan radio button
+        int beli = Integer.parseInt(txt_beli.getText());
+        int total = 0;
+
+        if (isEkonomiSelected) {
+            EkonomiTicketCalculator ekonomiCalculator = new EkonomiTicketCalculator(beli);
+            total = ekonomiCalculator.calculateTotal();
+        } else if (isBisnisSelected) {
+            BisnisTicketCalculator bisnisCalculator = new BisnisTicketCalculator(beli);
+            total = bisnisCalculator.calculateTotal();
+        } else if (isEksekutifSelected) {
+            EksekutifTicketCalculator eksekutifCalculator = new EksekutifTicketCalculator(beli);
+            total = eksekutifCalculator.calculateTotal();
+        }
+
         txt_bayar.setText(String.valueOf(total));
-        byr = Integer.parseInt(txt_bayar.getText());
+        byr = total;
     }//GEN-LAST:event_btn_hitungActionPerformed
 
     private void txt_hargaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_txt_hargaActionPerformed
